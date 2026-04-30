@@ -43,6 +43,7 @@ class SdkCameraActivity : ComponentActivity() {
             FileOutputStream(file).use { out ->
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out)
             }
+            MySdk.getAnalyticsProvider()?.sendEvent("inquiry_success")
             startActivity(
                 Intent(this, SdkTransactionActivity::class.java)
                     .putExtra(SdkTransactionActivity.EXTRA_PHOTO_PATH, file.absolutePath)
@@ -73,7 +74,7 @@ class SdkCameraActivity : ComponentActivity() {
     }
 
     private fun launchCamera() {
-        MySdk.getAnalyticsProvider().sendEvent("scan_clicked")
+        MySdk.getAnalyticsProvider()?.sendEvent("scan_clicked")
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
             == PackageManager.PERMISSION_GRANTED
         ) {

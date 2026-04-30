@@ -30,7 +30,7 @@ class SdkPaymentFailedActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         val reason = intent.getStringExtra(EXTRA_FAILURE_REASON).orEmpty()
-        MySdk.getAnalyticsProvider().sendEvent("payment_failed", mapOf("reason" to reason))
+        MySdk.getAnalyticsProvider()?.sendEvent("payment_failed", mapOf("reason" to reason))
 
         setContent {
             MaterialTheme {

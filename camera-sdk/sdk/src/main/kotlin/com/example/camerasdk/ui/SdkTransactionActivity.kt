@@ -101,7 +101,7 @@ class SdkTransactionActivity : ComponentActivity() {
     }
 
     private fun authenticate() {
-        MySdk.getAnalyticsProvider().sendEvent("confirm_clicked")
+        MySdk.getAnalyticsProvider()?.sendEvent("confirm_clicked")
         MySdk.getAuthProvider().authenticate(
             activity = this,
             callback = object : AuthCallback {

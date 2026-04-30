@@ -10,26 +10,21 @@ object MySdk {
     private var authProvider: AuthProvider? = null
     private var analyticsProvider: AnalyticsProvider? = null
 
-    fun initialize(authProvider: AuthProvider, analyticsProvider: AnalyticsProvider) {
+    fun initialize(authProvider: AuthProvider, analyticsProvider: AnalyticsProvider? = null) {
         this.authProvider = authProvider
         this.analyticsProvider = analyticsProvider
     }
 
     fun getAuthProvider(): AuthProvider {
         return checkNotNull(authProvider) {
-            "MySdk not initialized. Call MySdk.initialize(authProvider, analyticsProvider) first."
+            "MySdk not initialized. Call MySdk.initialize(authProvider) first."
         }
     }
 
-    fun getAnalyticsProvider(): AnalyticsProvider {
-        return checkNotNull(analyticsProvider) {
-            "MySdk not initialized. Call MySdk.initialize(authProvider, analyticsProvider) first."
-        }
-    }
+    fun getAnalyticsProvider(): AnalyticsProvider? = analyticsProvider
 
     fun launch(context: Context) {
         getAuthProvider()
-        getAnalyticsProvider()
         val intent = Intent(context, SdkCameraActivity::class.java)
         if (context !is Activity) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

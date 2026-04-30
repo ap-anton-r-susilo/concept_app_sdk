@@ -28,7 +28,7 @@ class SdkPaymentSuccessActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        MySdk.getAnalyticsProvider().sendEvent("payment_success")
+        MySdk.getAnalyticsProvider()?.sendEvent("payment_success")
 
         setContent {
             MaterialTheme {

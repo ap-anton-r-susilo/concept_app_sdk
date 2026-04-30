@@ -1,6 +1,7 @@
 package com.example.camerasdk
 
 import org.junit.After
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertSame
 import org.junit.Assert.fail
 import org.junit.Test
@@ -30,15 +31,20 @@ class MySdkTest {
     }
 
     @Test
-    fun `getAnalyticsProvider throws when not initialized`() {
+    fun `getAnalyticsProvider returns null when not initialized`() {
         MySdk.reset()
 
-        try {
-            MySdk.getAnalyticsProvider()
-            fail("Expected IllegalStateException when SDK is not initialized")
-        } catch (_: IllegalStateException) {
-            // Expected.
-        }
+        assertNull(MySdk.getAnalyticsProvider())
+    }
+
+    @Test
+    fun `initialize without analytics succeeds`() {
+        val provider = FakeAuthProvider("auth-only")
+
+        MySdk.initialize(provider)
+
+        assertSame(provider, MySdk.getAuthProvider())
+        assertNull(MySdk.getAnalyticsProvider())
     }
 
     @Test
